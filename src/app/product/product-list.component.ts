@@ -25,10 +25,11 @@ export class ProductListComponent implements OnInit {
   }
 
   products: Product[];
-  
-  filteredProducts: Product[];
 
-  constructor(private productService: ProductService) { 
+  filteredProducts: Product[];
+  errorMessage: string;
+
+  constructor(private productService: ProductService) {
   }
   toggleImage(): void {
     this.showImage = !this.showImage;
@@ -45,7 +46,12 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
+    this.productService.getProducts().subscribe(
+      products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error => this.errorMessage = <any>error
+    );
   }
 }
