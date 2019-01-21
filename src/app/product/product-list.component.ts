@@ -24,7 +24,6 @@ export class ProductListComponent implements OnInit {
   }
 
   products: Product[];
-
   filteredProducts: Product[];
   errorMessage: string;
 
