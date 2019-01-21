@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { from } from 'rxjs';
 import { Product } from './product';
 import { ProductService } from './product.service';
@@ -16,12 +16,18 @@ export class ProductDetailComponent implements OnInit {
 
   errMsg: string;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService) { }
 
   getProductById(products: Product[], id: number): Product[] {
     return products.filter((product: Product) => {
       return product.productId === id;
     });
+  }
+
+  onBack(): void {
+    this.router.navigate(['/products']);
   }
 
   ngOnInit() {
