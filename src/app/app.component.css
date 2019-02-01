@@ -1,3 +1,9 @@
+@media (min-width: 1200px) {
+  .ppage-container {
+    max-width: 1600px !important;
+  }
+}
+
 .nav-link {
   font-size: large;
 }

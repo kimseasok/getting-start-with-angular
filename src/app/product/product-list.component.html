@@ -42,6 +42,7 @@
             <td>{{product.description}}</td>
             <td>{{product.price | currency}}</td>
             <td><pm-star [rating] = 'product.starRating' (ratingClicked)='handleRatingClicked($event)'></pm-star></td>
+            <td> <button class="btn btn-outline-primary btn-sm" [routerLink]="['/products', product.productId, 'edit']" routerLinkActive="router-link-active" >Edit</button> </td>
           </tr>
         </tbody>
       </table>

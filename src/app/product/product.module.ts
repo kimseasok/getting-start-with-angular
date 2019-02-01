@@ -12,7 +12,12 @@ import { ProductEditInfoComponent } from './product-edit-info/product-edit-info.
   imports: [
     RouterModule.forChild([
       { path: 'products', component: ProductListComponent },
-      { path: 'products/:id', canActivate: [ProductDetailGuard], component: ProductDetailComponent },
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailComponent
+      },
+      { path: 'products/:id/edit', component: ProductEditComponent }
     ]),
     SharedModule
   ],
@@ -21,7 +26,7 @@ import { ProductEditInfoComponent } from './product-edit-info/product-edit-info.
     ProductDetailComponent,
     ProductEditComponent,
     ProductEditTagsComponent,
-    ProductEditInfoComponent,
+    ProductEditInfoComponent
   ]
 })
-export class ProductModule { }
+export class ProductModule {}
