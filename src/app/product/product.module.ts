@@ -4,6 +4,9 @@ import { ProductDetailComponent } from './product-detail.component';
 import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
+import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductEditTagsComponent } from './product-edit-tags/product-edit-tags.component';
+import { ProductEditInfoComponent } from './product-edit-info/product-edit-info.component';
 
 @NgModule({
   imports: [
@@ -16,6 +19,9 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
+    ProductEditComponent,
+    ProductEditTagsComponent,
+    ProductEditInfoComponent,
   ]
 })
 export class ProductModule { }
