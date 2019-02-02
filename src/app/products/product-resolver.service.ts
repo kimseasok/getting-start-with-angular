@@ -4,21 +4,37 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Product } from './product';
-import { Observable } from 'rxjs';
+import { Product, ProductResolved } from './product';
+import { Observable, of } from 'rxjs';
 import { ProductService } from './product.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductResolverService implements Resolve<Product> {
+export class ProductResolverService implements Resolve<ProductResolved> {
   constructor(private productService: ProductService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Product> {
-    const id = +route.paramMap.get('id');
-    return this.productService.getProduct(id);
+  ): Observable<ProductResolved> {
+    const id = route.paramMap.get('id');
+
+    // check to make sure id passed is a valid number
+
+    if (isNaN(+id)) {
+      const message = `Product id was not a number ${id}`;
+      console.error(message);
+      return of({ product: null, error: message });
+    }
+    return this.productService.getProduct(+id).pipe(
+      map(product => ({ product: product })),
+      catchError(error => {
+        const message = `Retrieval error: ${error}`;
+        console.error(error);
+        return of({ product: null, error: message });
+      })
+    );
   }
 }
