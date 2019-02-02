@@ -65,7 +65,7 @@
 }
 
 .wizard .active {
-    background: #007ACC;
+    background: #007ACC !important;
     color: #fff;
 }
 

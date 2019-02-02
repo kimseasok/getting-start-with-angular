@@ -5,7 +5,10 @@
 
   <div class="card-body" *ngIf="product">
     <div class="wizard">
-      <a href="" [routerLink]="['info']">Basic Info</a><a href="" [routerLink]="['tags']">Search Tags</a>
+      <a [routerLink]="['info']" routerLinkActive="active">Basic Info</a
+      ><a href="" [routerLink]="['tags']" routerLinkActive="active"
+        >Search Tags</a
+      >
     </div>
     <router-outlet></router-outlet>
     <div class="row mb-2">
@@ -25,14 +28,18 @@
           style="width:80px"
           title="Cancel your editing"
           [routerLink]="['/product']"
-        >Cancel</button>
+        >
+          Cancel
+        </button>
         <button
           class="btn btn-outline-secondary mr-3"
           type="button"
           style="width:80px"
           title="Delete this product"
           (click)="deleteProduct()"
-        >Delete</button>
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>
