@@ -10,6 +10,7 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router';
+import { MessageService } from './messages/message.service';
 
 @Component({
   selector: 'pm-root',
@@ -29,10 +30,17 @@ export class AppComponent {
     if (this.authService.currentUser) {
       return this.authService.currentUser.userName;
     }
-    return '';
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  get isDisplayedMessage(): boolean {
+    return this.messageService.isDisplay;
+  }
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService
+  ) {
     this.router.events.subscribe((routerEvent: RouterEvent) => {
       this.checkRouterEvent(routerEvent);
     });
@@ -50,6 +58,16 @@ export class AppComponent {
     ) {
       this.loading = false;
     }
+  }
+
+  displayMessage() {
+    this.router.navigate([{ outlets: { popup: ['messages'] } }]);
+    this.messageService.isDisplay = true;
+  }
+
+  hideMessage() {
+    this.router.navigate([{ outlets: { popup: null } }]);
+    this.messageService.isDisplay = false;
   }
 
   logOut(): void {
