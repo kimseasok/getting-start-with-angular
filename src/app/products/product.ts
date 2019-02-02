@@ -13,6 +13,7 @@ export interface Product {
 }
 
 export interface ProductResolved {
+  tags?: any;
   product: Product;
   error?: any;
 }
