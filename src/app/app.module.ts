@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {
+  RouterModule,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+  NavigationCancel
+} from '@angular/router';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -22,20 +29,19 @@ import { MessageModule } from './messages/message.module';
     BrowserAnimationsModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
-    RouterModule.forRoot([
-      { path: 'welcome', component: WelcomeComponent },
-      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', component: PageNotFoundComponent }
-    ], {enableTracing: true}),
+    RouterModule.forRoot(
+      [
+        { path: 'welcome', component: WelcomeComponent },
+        { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+        { path: '**', component: PageNotFoundComponent }
+      ],
+      { enableTracing: true }
+    ),
     ProductModule,
     UserModule,
     MessageModule
   ],
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-    PageNotFoundComponent
-  ],
+  declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
