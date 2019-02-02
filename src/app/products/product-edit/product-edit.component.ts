@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { MessageService } from '../../messages/message.service';
 
-import { Product } from '../product';
+import { Product, ProductResolved } from '../product';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -98,10 +98,12 @@ export class ProductEditComponent {
     // Navigate back to the product list
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const id = +params.get('id');
-      this.getProduct(id);
+    this.route.data.subscribe(data => {
+      const resolveProduct: ProductResolved = data['product'];
+      this.errorMessage = resolveProduct.error ? resolveProduct.error : '';
+      this.onProductRetrieved(resolveProduct.product);
     });
   }
 }
