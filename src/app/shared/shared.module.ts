@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StarComponent } from './star.component';
 import { FormsModule } from '@angular/forms';
-import { ConvertToSpacesPipe } from './convert-to-spaces.pipe';
+
+import { StarComponent } from './star.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    StarComponent,
-    ConvertToSpacesPipe
+    StarComponent
   ],
   exports: [
     StarComponent,
     CommonModule,
-    FormsModule,
-    ConvertToSpacesPipe
+    FormsModule
   ]
 })
 export class SharedModule { }

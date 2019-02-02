@@ -4,15 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MessageService {
-  private _message: string[] = [];
+  private _messages: string[] = [];
 
   get messages(): string[] {
-    return this._message;
+    return this._messages;
   }
 
   addMessage(message: string): void {
     const currentDate = new Date();
-
-    this.messages.unshift(`${message} at ${currentDate.toLocaleDateString()}`);
+    this.messages.unshift(message + ' at ' + currentDate.toLocaleString());
   }
 }

@@ -1,36 +1,43 @@
 import { Injectable } from '@angular/core';
-import { IUser } from './user.model';
+
+import { User } from './user';
 import { MessageService } from '../messages/message.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: IUser;
+  currentUser: User;
 
-  constructor(private smgService: MessageService, private router: Router) {}
+  get isLoggedIn(): boolean {
+    return !!this.currentUser;
+  }
 
-  loginUser(userName: string, password: string): boolean {
+  constructor(private messageService: MessageService) { }
+
+  login(userName: string, password: string): void {
     if (!userName || !password) {
-      this.smgService.addMessage('Please enter valid username and password');
-      return false;
+      this.messageService.addMessage('Please enter your userName and password');
+      return;
     }
-
     if (userName === 'admin') {
       this.currentUser = {
         id: 1,
         userName: userName,
         isAdmin: true
       };
-
-      this.smgService.addMessage(`User: ${this.currentUser.userName} is login`);
-      return true;
+      this.messageService.addMessage('Admin login');
+      return;
     }
+    this.currentUser = {
+      id: 2,
+      userName: userName,
+      isAdmin: false
+    };
+    this.messageService.addMessage(`User: ${this.currentUser.userName} logged in`);
   }
 
-  logoutUser(): void {
+  logout(): void {
     this.currentUser = null;
-    this.router.navigate(['/']);
   }
 }

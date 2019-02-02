@@ -1,17 +1,23 @@
 import { Component } from '@angular/core';
-import { MessageService } from './message.service';
 import { Router } from '@angular/router';
 
+import { MessageService } from './message.service';
+
 @Component({
-  selector: 'pm-message',
   templateUrl: './message.component.html',
-  styles: []
+  styles: [
+    '.message-row { margin-bottom: 10px }'
+  ]
 })
 export class MessageComponent {
-  constructor(private msgService: MessageService, private router: Router) {}
-
   get messages() {
-    return this.msgService.messages;
+    return this.messageService.messages;
   }
-  close(): void {}
+
+  constructor(private messageService: MessageService,
+              private router: Router) { }
+
+  close(): void {
+    // Close the popup.
+  }
 }

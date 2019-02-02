@@ -1,30 +1,26 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { AuthService } from './auth.service';
-import { MessageService } from '../messages/message.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'pm-login',
-  templateUrl: './login.component.html',
-  styles: []
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  pageTitle = 'Login';
-  userName: string;
-  password: string;
+  errorMessage: string;
+  pageTitle = 'Log In';
 
-  constructor(
-    private auth: AuthService,
-    private smg: MessageService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) { }
 
-  login(formValues: { userName: string; password: string }) {
-    let isValidLogin: boolean;
-    isValidLogin = this.auth.loginUser(formValues.userName, formValues.password);
+  login(loginForm: NgForm) {
+    if (loginForm && loginForm.valid) {
+      const userName = loginForm.form.value.userName;
+      const password = loginForm.form.value.password;
+      this.authService.login(userName, password);
 
-    if (isValidLogin) {
-      this.router.navigate(['products']);
+      // Navigate to the Product List page after log in.
+    } else {
+      this.errorMessage = 'Please enter a user name and password.';
     }
   }
 }
