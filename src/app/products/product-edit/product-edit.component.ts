@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductEditComponent {
   pageTitle = 'Product Edit';
   errorMessage: string;
-
   product: Product;
 
   constructor(

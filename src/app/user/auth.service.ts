@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 
 import { User } from './user';
 import { MessageService } from '../messages/message.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   currentUser: User;
+  redirectUrl: string;
 
   get isLoggedIn(): boolean {
     return !!this.currentUser;
   }
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private router: Router) {}
 
   login(userName: string, password: string): void {
     if (!userName || !password) {
@@ -27,6 +29,7 @@ export class AuthService {
         isAdmin: true
       };
       this.messageService.addMessage('Admin login');
+      this.router.navigate([this.redirectUrl]);
       return;
     }
     this.currentUser = {
@@ -34,10 +37,13 @@ export class AuthService {
       userName: userName,
       isAdmin: false
     };
-    this.messageService.addMessage(`User: ${this.currentUser.userName} logged in`);
+    this.messageService.addMessage(
+      `User: ${this.currentUser.userName} logged in`
+    );
   }
 
   logout(): void {
     this.currentUser = null;
+    this.router.navigate(['welcome']);
   }
 }
