@@ -64,6 +64,12 @@ export class CustomerComponent implements OnInit {
       rating: ['', ValiateRank(1, 5)],
       sendCatalog: true
     });
+
+    // Add watcher to the notification radio
+
+    this.customerForm
+      .get('notification')
+      .valueChanges.subscribe(value => this.setNotification(value));
   }
 
   save() {

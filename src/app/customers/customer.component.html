@@ -123,7 +123,7 @@
               >
                 Please confirm your email address.
               </span>
-              <span *ngIf="!!customerForm.get('emailGroup')?.errors.mismatch">
+              <span *ngIf="!!customerForm.get('emailGroup')?.errors?.mismatch">
                 The confirmation does not match the email address.
               </span>
             </span>
@@ -165,7 +165,6 @@
                 type="radio"
                 value="email"
                 formControlName="notification"
-                (click)="setNotification('email')"
               />
               Email
             </label>
@@ -177,7 +176,6 @@
                 type="radio"
                 value="text"
                 formControlName="notification"
-                (click)="setNotification('text')"
               />
               Text
             </label>
@@ -359,4 +357,4 @@
 <br />Valid: {{ customerForm.valid }} <br />Value:
 {{ customerForm.value | json }}
 
-<br>Group: {{ customerForm.get('emailGroup').errors.mismatch }}
+<br>Group: {{ !!customerForm.get('emailGroup')?.errors?.mismatch}}
