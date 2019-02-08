@@ -4,7 +4,8 @@ import {
   FormBuilder,
   Validators,
   AbstractControl,
-  ValidatorFn
+  ValidatorFn,
+  FormArray
 } from '@angular/forms';
 
 import { Customer } from './customer';
@@ -46,6 +47,10 @@ export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customer = new Customer();
 
+  get addresses(): FormArray {
+    return <FormArray>this.customerForm.get('addresses');
+  }
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -63,14 +68,7 @@ export class CustomerComponent implements OnInit {
       notification: 'email',
       rating: ['', ValiateRank(1, 5)],
       sendCatalog: true,
-      address: this.fb.group({
-        addressType: 'home',
-        street1: '',
-        street2: '',
-        city: '',
-        state: '',
-        zip: ''
-      })
+      addresses: this.fb.array([this.buildAddress()])
     });
 
     // Add watcher to the notification radio
@@ -78,6 +76,21 @@ export class CustomerComponent implements OnInit {
     this.customerForm
       .get('notification')
       .valueChanges.subscribe(value => this.setNotification(value));
+  }
+
+  buildAddress(): FormGroup {
+    return this.fb.group({
+      addressType: 'home',
+      street1: '',
+      street2: '',
+      city: '',
+      state: '',
+      zip: ''
+    });
+  }
+
+  addAddress(): void {
+    this.addresses.push(this.buildAddress());
   }
 
   save() {
