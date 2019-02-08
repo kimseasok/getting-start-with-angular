@@ -62,7 +62,15 @@ export class CustomerComponent implements OnInit {
       phone: '',
       notification: 'email',
       rating: ['', ValiateRank(1, 5)],
-      sendCatalog: true
+      sendCatalog: true,
+      address: this.fb.group({
+        addressType: 'home',
+        street1: '',
+        street2: '',
+        city: '',
+        state: '',
+        zip: ''
+      })
     });
 
     // Add watcher to the notification radio
